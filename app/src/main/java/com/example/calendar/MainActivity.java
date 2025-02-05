@@ -1,4 +1,4 @@
-package com.example.jin;
+package com.example.calendar;
 
 import android.os.Bundle;
 import android.webkit.WebSettings;
@@ -6,7 +6,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.jin.R;
+import com.example.calendar.R;
 
 public class MainActivity extends AppCompatActivity {
     @Override
@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
         // PC의 IP 주소로 로컬 서버를 로드합니다.
         // 'http://172.17.22.82:3000'로 연결합니다.
-        webView.loadUrl("http://54.180.167.86");
+        webView.loadUrl("http://3.38.20.237");
 
         // WebViewClient를 설정하여 새 페이지가 브라우저에서 열리지 않도록 설정합니다.
         webView.setWebViewClient(new WebViewClient());

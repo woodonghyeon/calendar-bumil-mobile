@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.jin"
+    namespace = "com.example.calendar"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.jin"
+        applicationId = "com.example.calendar"
         minSdk = 24
         targetSdk = 35
         versionCode = 1
