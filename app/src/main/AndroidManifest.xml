@@ -21,7 +21,8 @@
             android:name="MainActivity"
             android:exported="true"
             android:theme="@style/Theme.Jin"
-            tools:ignore="MissingClass">
+            tools:ignore="MissingClass"
+            android:screenOrientation="portrait"> 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
