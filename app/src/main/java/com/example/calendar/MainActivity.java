@@ -9,7 +9,6 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.KeyEvent;
 
@@ -43,13 +42,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
                 // Android에서 알림을 띄움
-                new AlertDialog.Builder(MainActivity.this)
-                        .setTitle("웹 알림")
-                        .setMessage(message) // JavaScript의 alert() 메시지 표시
-                        .setPositiveButton(android.R.string.ok, (dialog, which) -> result.confirm())
-                        .setCancelable(false) // 다이얼로그 닫기 방지
-                        .show();
-                return true; // 기본 alert 동작을 막고 커스텀 다이얼로그 사용
+                Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+                result.confirm(); // alert 처리를 완료
+                return true;
             }
         });
     }
@@ -58,21 +53,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (webView.canGoBack()) {
-                webView.goBack(); // 웹 뒤로 가기
-                return true;
+            if (doubleBackToExitPressedOnce) {
+                finish(); // 앱 종료
             } else {
-                if (doubleBackToExitPressedOnce) {
-                    finish(); // 앱 종료
-                } else {
-                    this.doubleBackToExitPressedOnce = true;
-                    Toast.makeText(this, "뒤로 가기 버튼을 한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
+                this.doubleBackToExitPressedOnce = true;
+                Toast.makeText(this, "뒤로 가기 버튼을 한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
 
-                    // 2초 후 다시 false로 초기화 (연속 클릭이 아닌 경우)
-                    new Handler(Looper.getMainLooper()).postDelayed(() -> doubleBackToExitPressedOnce = false, 2000);
-                }
-                return true;
+                // 2초 안에 다시 누르지 않으면 초기화
+                new Handler(Looper.getMainLooper()).postDelayed(
+                    () -> doubleBackToExitPressedOnce = false, 
+                    2000
+                );
             }
+            return true; // 기본 동작 방지
         }
         return super.onKeyDown(keyCode, event);
     }
